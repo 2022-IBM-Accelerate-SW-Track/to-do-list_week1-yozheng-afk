@@ -1,13 +1,22 @@
 import React, { Component } from 'react';
-  
+import AddTodo from "../component/AddTodo.js";
+import Todos from "../component/todos.js";
+import "../pages/Home.css";
+
 class Home extends Component {
   // A default state of this component with an empty list of todos.
   constructor() {
     super();
     this.state = {
-      // create your empty list here call it todos.
+      todos: [],
     };
-  }
+  };
+  deletes = (todo) => {
+    let new_list = this.state.todos.filter((item) => item.id !== todo.id);
+    this.setState({
+      todos: new_list,
+    });
+  };
   // the addTodo function simply creates a new array that includes the user submitted todo item and then
   // updates the state with the new list.
   addTodo = (todo) => {
@@ -28,10 +37,11 @@ class Home extends Component {
     return (
       <div className="Home">
         <h1>Todo's </h1>
-        <p> Replace this</p>
+        <Todos todos={this.state.todos} deletes={this.deletes}/>
+        <AddTodo addTodo={this.addTodo}/>
       </div>
     );
-  }
+  };
 }
 
 export default Home;
